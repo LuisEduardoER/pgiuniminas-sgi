@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory name="session">
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/sgi</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.connection.pool_size">1</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">create-drop</property>
+    <mapping class="Pessoa.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Corretor.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Funcionario.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Endereco.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Imovel.java" package="pgi.uniminas.entidades"/>
+    <mapping class="ImovelCom.java" package="pgi.uniminas.entidades"/>
+    <mapping class="ImovelOut.java" package="pgi.uniminas.entidades"/>
+    <mapping class="ImovelRes.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Imovel.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Cliente.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Usuario.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Contexto.java" package="pgi.uniminas.entidades"/>
+    <mapping class="ContextoAcao.java" package="pgi.uniminas.entidades"/>
+    <mapping class="UsuarioPermissao.java" package="pgi.uniminas.entidades"/>
+    <mapping class="Visita.java" package="pgi.uniminas.entidades"/>
+    <mapping class="ItemVisita.java" package="pgi.uniminas.entidades"/>
+  </session-factory>
+</hibernate-configuration>
