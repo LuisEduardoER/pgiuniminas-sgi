@@ -35,6 +35,8 @@ public class ImovelRes extends Imovel implements Serializable{
     private int qtdVagasGarajem;
     @Column(name="valcondominio")
     private double valCondominio;
+    @Column(name="indtipores")
+    private char indTipoRes;
 
     public ImovelRes(){        
     }
@@ -44,7 +46,7 @@ public class ImovelRes extends Imovel implements Serializable{
             char indStatus, double valImovel, char indTipo, String desImovel, 
             Date dtaHabitese, char indCobertura, char indNovoUsado, 
             int qtdDormitorios, int qtdSuite, int qtdBanheiro, int qtdSala, 
-            int qtdVagasGarajem, double valCondominio) {
+            int qtdVagasGarajem, double valCondominio, char indTipoRes) {
         super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil, 
               areaTotal, indStatus, valImovel, indTipo);
         this.desImovel = desImovel;
@@ -57,12 +59,13 @@ public class ImovelRes extends Imovel implements Serializable{
         this.qtdSala = qtdSala;
         this.qtdVagasGarajem = qtdVagasGarajem;
         this.valCondominio = valCondominio;
+        this.indTipoRes = indTipoRes;
     }
 
     public ImovelRes(String desImovel, Date dtaHabitese, char indCobertura, 
                      char indNovoUsado, int qtdDormitorios, int qtdSuite, 
                      int qtdBanheiro, int qtdSala, int qtdVagasGarajem, 
-                     double valCondominio) {
+                     double valCondominio, char indTipoRes) {
         this.desImovel = desImovel;
         this.dtaHabitese = dtaHabitese;
         this.indCobertura = indCobertura;
@@ -73,6 +76,7 @@ public class ImovelRes extends Imovel implements Serializable{
         this.qtdSala = qtdSala;
         this.qtdVagasGarajem = qtdVagasGarajem;
         this.valCondominio = valCondominio;
+        this.indTipoRes = indTipoRes;
     }
 
     public String getDesImovel() {
@@ -154,6 +158,14 @@ public class ImovelRes extends Imovel implements Serializable{
     public void setValCondominio(double valCondominio) {
         this.valCondominio = valCondominio;
     }
+
+    public char getIndTipoRes() {
+        return indTipoRes;
+    }
+
+    public void setIndCasaApto(char indTipoRes){
+        this.indTipoRes = indTipoRes;
+    }    
 
     @Override
     public boolean equals(Object obj) {

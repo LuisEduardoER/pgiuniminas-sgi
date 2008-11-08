@@ -6,11 +6,11 @@
             <name>SGI</name>
             <minimum-ant-version>1.6</minimum-ant-version>
             <web-module-libraries>
-                <library files="5">
-                    <file>${libs.struts2lib-2-0-11-basic.classpath}</file>
+                <library>
+                    <file>${libs.Struts2.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
-                <library files="11">
+                <library>
                     <file>${libs.hibernate-support.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
