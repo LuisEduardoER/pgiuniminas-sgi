@@ -18,5 +18,9 @@ import com.opensymphony.xwork2.ActionSupport;
 public class PessoaAcao extends ActionSupport {
     private static final long serialVersionUID = 1L;
     private PessoaNeg pessoaNeg = new PessoaNeg();
+
+
+
+
     
 }
