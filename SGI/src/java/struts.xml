@@ -5,7 +5,10 @@
 <struts>
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
-        <action name="cadPessoa">            
+        <action name="getImoveis" class="pgi.uniminas.imovelAcao" method="getImoveis">
+            <result name="Sucess">nome do tiles que ira listar os imoveis</result>
         </action>
     </package>
+
+
 </struts>
