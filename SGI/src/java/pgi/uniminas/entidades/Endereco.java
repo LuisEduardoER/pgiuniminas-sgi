@@ -10,31 +10,32 @@ import javax.persistence.Table;
  *
  * @author g1
  */
-@Entity 
-@Table (name = "sgiendereco")
+@Entity
+@Table(name = "sgiendereco")
 public class Endereco implements Serializable {
+
     @Id
-    @Column(name="codcep")
+    @Column(name = "codcep")
     private String codCep;
-    @Column(name="nomlogradouro")
+    @Column(name = "nomlogradouro")
     private String nomLogradouro;
-    @Column(name="nombairro")
+    @Column(name = "nombairro")
     private String nomBairo;
-    @Column(name="nomcidade")
+    @Column(name = "nomcidade")
     private String nomCidade;
-    @Column(name="sglestado")
+    @Column(name = "sglestado")
     private String sglEstado;
-    @Column(name="desobservacao")
+    @Column(name = "desobservacao")
     private String desObservacao;
-    @Column(name="indtipolougradouro")
+    @Column(name = "indtipolougradouro")
     private String indTipoLogradouro;
 
-    public Endereco(){
+    public Endereco() {
     }
-    
-    public Endereco(String codCep, String nomLogradouro, String nomBairo, 
-                    String nomCidade, String sglEstado, String desObservacao, 
-                    String indTipoLogradouro) {
+
+    public Endereco(String codCep, String nomLogradouro, String nomBairo,
+            String nomCidade, String sglEstado, String desObservacao,
+            String indTipoLogradouro) {
         this.codCep = codCep;
         this.nomLogradouro = nomLogradouro;
         this.nomBairo = nomBairo;
@@ -113,17 +114,17 @@ public class Endereco implements Serializable {
             return false;
         }
         return true;
-    }    
-    
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 11 * hash + (this.codCep != null ? this.codCep.hashCode() : 0);
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.Endereco [id=" + codCep + "]";
     }
 }

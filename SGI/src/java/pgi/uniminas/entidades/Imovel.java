@@ -15,41 +15,41 @@ import javax.persistence.Table;
 /**
  * @author g1
  */
-
 @Entity
 @Table(name = "sgiimovel")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Imovel implements Serializable {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codImovel;
     @OneToOne
-    @JoinColumn(name="codCep")
+    @JoinColumn(name = "codCep")
     private Endereco endereco;
     @OneToOne
-    @JoinColumn(name="codPessoa")
+    @JoinColumn(name = "codPessoa")
     private Pessoa proprietario;
-    @Column(name="numendereco")
+    @Column(name = "numendereco")
     private int numEndereco;
-    @Column(name="descomplementoend")
+    @Column(name = "descomplementoend")
     private String desComplementoEnd;
-    @Column(name="areautil")
+    @Column(name = "areautil")
     private double areaUtil;
-    @Column(name="areatotal")
+    @Column(name = "areatotal")
     private double areaTotal;
-    @Column(name="indstatus")
+    @Column(name = "indstatus")
     private char indStatus;
-    @Column(name="valimovel")
+    @Column(name = "valimovel")
     private double valImovel;
-    @Column(name="indtipo")
+    @Column(name = "indtipo")
     private char indTipo;
-    
-    public Imovel(){        
+
+    public Imovel() {
     }
 
-    public Imovel(Endereco endereco, Pessoa proprietario, int numEndereco, 
-                  String desComplementoEnd, double areaUtil, double areaTotal,
-                  char indStatus, double valImovel, char indTipo) {
+    public Imovel(Endereco endereco, Pessoa proprietario, int numEndereco,
+            String desComplementoEnd, double areaUtil, double areaTotal,
+            char indStatus, double valImovel, char indTipo) {
         this.endereco = endereco;
         this.proprietario = proprietario;
         this.numEndereco = numEndereco;
@@ -64,7 +64,7 @@ public class Imovel implements Serializable {
     public int getCodImovel() {
         return codImovel;
     }
-    
+
     public double getAreaTotal() {
         return areaTotal;
     }
@@ -158,9 +158,9 @@ public class Imovel implements Serializable {
         hash = 53 * hash + this.codImovel;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
-        return "pgi.uniminas.entidades.Imovel [id=" + codImovel +"]";
+    public String toString() {
+        return "pgi.uniminas.entidades.Imovel [id=" + codImovel + "]";
     }
 }

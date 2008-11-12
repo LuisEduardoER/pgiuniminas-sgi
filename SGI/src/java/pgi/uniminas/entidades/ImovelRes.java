@@ -12,43 +12,44 @@ import javax.persistence.Temporal;
  * @author g1
  */
 @Entity
-@Table(name="sgiimovelres")
-public class ImovelRes extends Imovel implements Serializable{
-    @Column(name="desimovel")
+@Table(name = "sgiimovelres")
+public class ImovelRes extends Imovel implements Serializable {
+
+    @Column(name = "desimovel")
     private String desImovel;
-    @Column(name="dtahabitese")
+    @Column(name = "dtahabitese")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaHabitese;
-    @Column(name="indcobertura")
+    @Column(name = "indcobertura")
     private char indCobertura;
-    @Column(name="indnovousado")
+    @Column(name = "indnovousado")
     private char indNovoUsado;
-    @Column(name="qtddormitorios")
+    @Column(name = "qtddormitorios")
     private int qtdDormitorios;
-    @Column(name="qtdsuite")
+    @Column(name = "qtdsuite")
     private int qtdSuite;
-    @Column(name="qtdbanheiro")
+    @Column(name = "qtdbanheiro")
     private int qtdBanheiro;
-    @Column(name="qtdsala")
+    @Column(name = "qtdsala")
     private int qtdSala;
-    @Column(name="qtdvagasgarajem")
+    @Column(name = "qtdvagasgarajem")
     private int qtdVagasGarajem;
-    @Column(name="valcondominio")
+    @Column(name = "valcondominio")
     private double valCondominio;
-    @Column(name="indtipores")
+    @Column(name = "indtipores")
     private char indTipoRes;
 
-    public ImovelRes(){        
+    public ImovelRes() {
     }
-    
-    public ImovelRes(Endereco codCep, Pessoa codPessoa, int numEndereco, 
-            String desComplementoEnd, double areaUtil, double areaTotal, 
-            char indStatus, double valImovel, char indTipo, String desImovel, 
-            Date dtaHabitese, char indCobertura, char indNovoUsado, 
-            int qtdDormitorios, int qtdSuite, int qtdBanheiro, int qtdSala, 
+
+    public ImovelRes(Endereco codCep, Pessoa codPessoa, int numEndereco,
+            String desComplementoEnd, double areaUtil, double areaTotal,
+            char indStatus, double valImovel, char indTipo, String desImovel,
+            Date dtaHabitese, char indCobertura, char indNovoUsado,
+            int qtdDormitorios, int qtdSuite, int qtdBanheiro, int qtdSala,
             int qtdVagasGarajem, double valCondominio, char indTipoRes) {
-        super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil, 
-              areaTotal, indStatus, valImovel, indTipo);
+        super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil,
+                areaTotal, indStatus, valImovel, indTipo);
         this.desImovel = desImovel;
         this.dtaHabitese = dtaHabitese;
         this.indCobertura = indCobertura;
@@ -62,10 +63,10 @@ public class ImovelRes extends Imovel implements Serializable{
         this.indTipoRes = indTipoRes;
     }
 
-    public ImovelRes(String desImovel, Date dtaHabitese, char indCobertura, 
-                     char indNovoUsado, int qtdDormitorios, int qtdSuite, 
-                     int qtdBanheiro, int qtdSala, int qtdVagasGarajem, 
-                     double valCondominio, char indTipoRes) {
+    public ImovelRes(String desImovel, Date dtaHabitese, char indCobertura,
+            char indNovoUsado, int qtdDormitorios, int qtdSuite,
+            int qtdBanheiro, int qtdSala, int qtdVagasGarajem,
+            double valCondominio, char indTipoRes) {
         this.desImovel = desImovel;
         this.dtaHabitese = dtaHabitese;
         this.indCobertura = indCobertura;
@@ -163,9 +164,9 @@ public class ImovelRes extends Imovel implements Serializable{
         return indTipoRes;
     }
 
-    public void setIndCasaApto(char indTipoRes){
+    public void setIndCasaApto(char indTipoRes) {
         this.indTipoRes = indTipoRes;
-    }    
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -176,7 +177,7 @@ public class ImovelRes extends Imovel implements Serializable{
             return false;
         }
         final ImovelRes outro = (ImovelRes) obj;
-        if(super.getCodImovel() != outro.getCodImovel()){
+        if (super.getCodImovel() != outro.getCodImovel()) {
             return false;
         }
         return true;
@@ -187,9 +188,9 @@ public class ImovelRes extends Imovel implements Serializable{
         int hash = 7;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.ImovelRes [id=" + super.getCodImovel() + "]";
     }
 }

@@ -10,59 +10,60 @@ import pgi.uniminas.entidades.Pessoa;
  *
  * @author G1
  */
-public class PessoaHibDao implements PessoaDao{
-    private List <Pessoa> pessoaList;
+public class PessoaHibDao implements PessoaDao {
+
+    private List<Pessoa> pessoaList;
     private Pessoa pess;
     private Session session;
 
     @Override
     public Pessoa getPessoa(int codPessoa) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try{
+        try {
             session.beginTransaction();
             Query q = session.createQuery("from pessoa as p " +
-                                          "inner join fetch p.endereco e " +
-                                          "where p.codpessoa = :codPessoa");
+                    "inner join fetch p.endereco e " +
+                    "where p.codpessoa = :codPessoa");
             q.setInteger("codpessoa", codPessoa);
             return (Pessoa) q.uniqueResult();
-        }catch(Exception e){
-            System.out.print("Erro de SQL: "+ e);
+        } catch (Exception e) {
+            System.out.print("Erro de SQL: " + e);
             return null;
-        }
-        finally{
+        } finally {
             session.close();
-        }        
+        }
     }
 
     @Override
     public List getPessoas() {
-       session = HibernateUtil.getSessionFactory().getCurrentSession();
-       try{
-           session.beginTransaction();
-           pessoaList = session.createQuery("from pessoa as p" +
-                                            "inner join fetch p.endereco e").list();
-           return pessoaList;
-       }catch(Exception e){
-           System.out.println("Erro de SQL: " + e);
-           return null;
-       }finally{
-           session.close();
-       }       
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            pessoaList = session.createQuery("from pessoa as p" +
+                    "inner join fetch p.endereco e").list();
+            return pessoaList;
+        } catch (Exception e) {
+            System.out.println("Erro de SQL: " + e);
+            return null;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void insertPessoa(Pessoa p) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
-        try{
+        try {
             tr = session.beginTransaction();
             session.save(p);
             tr.commit();
-        }catch(RuntimeException e){
-            if(tr != null){
+        } catch (RuntimeException e) {
+            if (tr != null) {
                 tr.rollback();
-            }throw e;
-        }finally{
+            }
+            throw e;
+        } finally {
             session.close();
         }
     }
@@ -71,34 +72,38 @@ public class PessoaHibDao implements PessoaDao{
     public void updatePessoa(Pessoa p) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
-        try{
+        try {
             tr = session.beginTransaction();
             session.update(p);
             tr.commit();
-        }catch(RuntimeException e){
-            if(tr != null){
+        } catch (RuntimeException e) {
+            if (tr != null) {
                 tr.rollback();
-            }throw e;
-        }finally{
+            }
+            throw e;
+        } finally {
             session.close();
         }
     }
 
     @Override
-    public void deletePessoa(int codPessoa) {
+    public void deletePessoa(Pessoa[] p) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
-        try{
+        try {
             tr = session.beginTransaction();
-            pess = (Pessoa) session.get(Pessoa.class, codPessoa);
-            session.delete(pess);
+            for (int i = 0; i < p.length; i++) {
+                pess = (Pessoa) session.get(Pessoa.class, p[i].getCodPessoa());
+                session.delete(pess);
+            }
             tr.commit();
-        }catch(RuntimeException e){
-            if(tr != null){
-                tr.rollback();                
-            }throw e;
-        }finally{
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
             session.close();
-        }        
+        }
     }
 }
