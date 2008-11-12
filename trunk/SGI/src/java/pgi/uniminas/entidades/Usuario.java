@@ -15,37 +15,38 @@ import javax.persistence.Temporal;
  * @author g1
  */
 @Entity
-@Table(name="sgiusuario")
-public class Usuario implements Serializable{
+@Table(name = "sgiusuario")
+public class Usuario implements Serializable {
+
     @Id
-    @Column(name="codusuario")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "codusuario")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codUsuario;
-    @Column(name="nomusuario")
+    @Column(name = "nomusuario")
     private String nomUsuario;
-    @Column(name="nomlogin")
+    @Column(name = "nomlogin")
     private String nomLogin;
-    @Column(name="dessenha")
+    @Column(name = "dessenha")
     private String desSenha;
-    @Column(name="deshash")
+    @Column(name = "deshash")
     private String desHash;
-    @Column(name="indadmin")
+    @Column(name = "indadmin")
     private char indAdmin;
-    @Column(name="dtacadastro")
+    @Column(name = "dtacadastro")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaCadastro;
-    @Column(name="dtaultimoacesso")
+    @Column(name = "dtaultimoacesso")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaUltimoAcesso;
-    @Column(name="indbloqueado")
+    @Column(name = "indbloqueado")
     private char indBloqueado;
 
     public Usuario() {
     }
 
-    public Usuario(String nomUsuario, String nomLogin, String desSenha, 
-                   String desHash, char indAdmin, Date dtaCadastro, 
-                   Date dtaUltimoAcesso, char indBloqueado) {
+    public Usuario(String nomUsuario, String nomLogin, String desSenha,
+            String desHash, char indAdmin, Date dtaCadastro,
+            Date dtaUltimoAcesso, char indBloqueado) {
         this.nomUsuario = nomUsuario;
         this.nomLogin = nomLogin;
         this.desSenha = desSenha;
@@ -60,7 +61,6 @@ public class Usuario implements Serializable{
         return codUsuario;
     }
 
-    
     public String getDesHash() {
         return desHash;
     }
@@ -146,9 +146,9 @@ public class Usuario implements Serializable{
         hash = 67 * hash + this.codUsuario;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.Usuario [id=" + codUsuario + "]";
     }
 }

@@ -12,13 +12,14 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
-@Table (name="sgipercentcomissao")
-public class PercentComissao implements Serializable {   
+@Table(name = "sgipercentcomissao")
+public class PercentComissao implements Serializable {
+
     @Id
     @OneToOne
-    @JoinColumn(name="codpessoa")
+    @JoinColumn(name = "codpessoa")
     private Corretor corretor;
-    @Column(name="percentcomissao")
+    @Column(name = "percentcomissao")
     private int percentComissao;
 
     public PercentComissao() {
@@ -54,7 +55,7 @@ public class PercentComissao implements Serializable {
             return false;
         }
         final PercentComissao outro = (PercentComissao) obj;
-        if(!corretor.equals(outro.getCorretor()) || percentComissao != outro.getPercentComissao()){
+        if (!corretor.equals(outro.getCorretor()) || percentComissao != outro.getPercentComissao()) {
             return false;
         }
         return true;
@@ -65,10 +66,9 @@ public class PercentComissao implements Serializable {
         int hash = 7;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.PercentComissao [id=" + corretor.getCodPessoa() + "]";
     }
-    
 }

@@ -13,15 +13,16 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
-@Table(name="sgicontextoacao")
+@Table(name = "sgicontextoacao")
 public class ContextoAcao implements Serializable {
+
     @Id
-    @Column(name="codacao")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "codacao")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codAcao;
-    @Column(name="nomacao")
+    @Column(name = "nomacao")
     private String nomAcao;
-    @Column(name="indadmin")
+    @Column(name = "indadmin")
     private char indAdmin;
 
     public ContextoAcao() {
@@ -35,7 +36,7 @@ public class ContextoAcao implements Serializable {
     public int getCodAcao() {
         return codAcao;
     }
-    
+
     public char getIndAdmin() {
         return indAdmin;
     }
@@ -73,9 +74,9 @@ public class ContextoAcao implements Serializable {
         hash = 17 * hash + this.codAcao;
         return hash;
     }
-        
-    @Override 
-    public String toString(){
+
+    @Override
+    public String toString() {
         return "pgi.uniminas.entidades.ContextoAcao[id=" + codAcao + "]";
     }
 }

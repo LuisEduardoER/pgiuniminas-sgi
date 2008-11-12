@@ -12,15 +12,16 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
-@Table(name="sgiusuariopermissao")
-public class UsuarioPermissao implements Serializable{
-    @Id    
+@Table(name = "sgiusuariopermissao")
+public class UsuarioPermissao implements Serializable {
+
+    @Id
     @ManyToOne
-    @JoinColumn(name="codusuario")
+    @JoinColumn(name = "codusuario")
     private Usuario usuario;
     @Id
     @ManyToOne
-    @JoinColumn(name="codacao")
+    @JoinColumn(name = "codacao")
     private ContextoAcao contextoAcao;
 
     public UsuarioPermissao() {
@@ -72,13 +73,11 @@ public class UsuarioPermissao implements Serializable{
         hash = 59 * hash + (this.contextoAcao != null ? this.contextoAcao.hashCode() : 0);
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.UsuarioPermissao [Usuario id=" +
                 usuario.getCodUsuario() + "] [Contexto id=" +
-                contextoAcao.getCodAcao()+"]"; 
+                contextoAcao.getCodAcao() + "]";
     }
-    
-    
 }

@@ -12,32 +12,33 @@ import javax.persistence.Temporal;
  * @author g1
  */
 @Entity
-@Table (name="sgiimovelcom")
-public class ImovelCom extends Imovel implements Serializable{
-    @Column(name="desimovel")
+@Table(name = "sgiimovelcom")
+public class ImovelCom extends Imovel implements Serializable {
+
+    @Column(name = "desimovel")
     private String desImovel;
-    @Column(name="dtahabitese")
-    @Temporal(javax.persistence.TemporalType.DATE)   
+    @Column(name = "dtahabitese")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaHabitese;
-    @Column(name="indnovousado")
+    @Column(name = "indnovousado")
     private char indNovoUsado;
-    @Column(name="indavenidacom")
+    @Column(name = "indavenidacom")
     private char indAvenidaCom;
-    @Column(name="indgaleriacom")
+    @Column(name = "indgaleriacom")
     private char indGaleriaCom;
-    @Column(name="qtdvagasest")
+    @Column(name = "qtdvagasest")
     private int qtdVagasEstac;
 
-    public ImovelCom(){        
+    public ImovelCom() {
     }
-    
-    public ImovelCom(Endereco codCep, Pessoa codPessoa, int numEndereco, 
-                     String desComplementoEnd, double areaUtil, double areaTotal, 
-                     char indStatus, double valImovel, char indTipo, 
-                     String desImovel, Date dtaHabitese, char indNovoUsado, 
-                     char indAvenidaCom, char indGaleriaCom, int qtdVagasEstac){
-        super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil, 
-              areaTotal, indStatus, valImovel, indTipo);
+
+    public ImovelCom(Endereco codCep, Pessoa codPessoa, int numEndereco,
+            String desComplementoEnd, double areaUtil, double areaTotal,
+            char indStatus, double valImovel, char indTipo,
+            String desImovel, Date dtaHabitese, char indNovoUsado,
+            char indAvenidaCom, char indGaleriaCom, int qtdVagasEstac) {
+        super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil,
+                areaTotal, indStatus, valImovel, indTipo);
         this.desImovel = desImovel;
         this.dtaHabitese = dtaHabitese;
         this.indNovoUsado = indNovoUsado;
@@ -46,8 +47,8 @@ public class ImovelCom extends Imovel implements Serializable{
         this.qtdVagasEstac = qtdVagasEstac;
     }
 
-    public ImovelCom(String desImovel, Date dtaHabitese, char indNovoUsado, 
-                     char indAvenidaCom, char indGaleriaCom, int qtdVagasEstac){
+    public ImovelCom(String desImovel, Date dtaHabitese, char indNovoUsado,
+            char indAvenidaCom, char indGaleriaCom, int qtdVagasEstac) {
         this.desImovel = desImovel;
         this.dtaHabitese = dtaHabitese;
         this.indNovoUsado = indNovoUsado;
@@ -113,7 +114,7 @@ public class ImovelCom extends Imovel implements Serializable{
             return false;
         }
         final ImovelCom outro = (ImovelCom) obj;
-        if(super.getCodImovel() != outro.getCodImovel()){
+        if (super.getCodImovel() != outro.getCodImovel()) {
             return false;
         }
         return true;
@@ -124,10 +125,9 @@ public class ImovelCom extends Imovel implements Serializable{
         int hash = 3;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.ImovelCom [id=" + super.getCodImovel() + "]";
     }
-    
 }

@@ -15,19 +15,20 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
-@Table(name="sgiparecervisita")
+@Table(name = "sgiparecervisita")
 public class ItemVisita implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name="seqparecer")
+    @Column(name = "seqparecer")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int seqParecer;
     @ManyToOne
-    @JoinColumn(name="codvisita")
+    @JoinColumn(name = "codvisita")
     private Visita visita;
-    @Column(name="indtipo")
+    @Column(name = "indtipo")
     private char indTipo;
-    @Column(name="desparecer")
+    @Column(name = "desparecer")
     private String descricao;
 
     public ItemVisita() {
@@ -88,11 +89,9 @@ public class ItemVisita implements Serializable {
         hash = 67 * hash + this.seqParecer;
         return hash;
     }
-    
-    
+
     @Override
     public String toString() {
         return "pgi.uniminas.entidades.ItemVisita[id=" + seqParecer + "]";
     }
-
 }

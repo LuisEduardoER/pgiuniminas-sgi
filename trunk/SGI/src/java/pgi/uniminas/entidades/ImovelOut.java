@@ -10,26 +10,27 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
-@Table (name="sgiimovelout")
+@Table(name = "sgiimovelout")
 public class ImovelOut extends Imovel implements Serializable {
-    @Column(name="desimovel")
+
+    @Column(name = "desimovel")
     private String desImovel;
-    @Column(name="indesquina")
+    @Column(name = "indesquina")
     private char indEsquina;
-    @Column(name="indquina")
+    @Column(name = "indquina")
     private char indQuina;
-    @Column(name="indtipoout")
+    @Column(name = "indtipoout")
     private char indTipoOut;
-    
-    public ImovelOut(){        
+
+    public ImovelOut() {
     }
 
-    public ImovelOut(Endereco codCep, Pessoa codPessoa, int numEndereco, 
-                     String desComplementoEnd, double areaUtil, double areaTotal,
-                     char indStatus, double valImovel, char indTipo, char indTipoOut, 
-                     String desImovel, char indEsquina, char indQuina) {
-        super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil, 
-              areaTotal, indStatus, valImovel, indTipo);
+    public ImovelOut(Endereco codCep, Pessoa codPessoa, int numEndereco,
+            String desComplementoEnd, double areaUtil, double areaTotal,
+            char indStatus, double valImovel, char indTipo, char indTipoOut,
+            String desImovel, char indEsquina, char indQuina) {
+        super(codCep, codPessoa, numEndereco, desComplementoEnd, areaUtil,
+                areaTotal, indStatus, valImovel, indTipo);
         this.desImovel = desImovel;
         this.indEsquina = indEsquina;
         this.indQuina = indQuina;
@@ -37,7 +38,7 @@ public class ImovelOut extends Imovel implements Serializable {
     }
 
     public ImovelOut(String desImovel, char indEsquina, char indQuina,
-                     char indTipoOut) {
+            char indTipoOut) {
         this.desImovel = desImovel;
         this.indEsquina = indEsquina;
         this.indQuina = indQuina;
@@ -85,7 +86,7 @@ public class ImovelOut extends Imovel implements Serializable {
             return false;
         }
         final ImovelOut outro = (ImovelOut) obj;
-        if(super.getCodImovel() != outro.getCodImovel()){
+        if (super.getCodImovel() != outro.getCodImovel()) {
             return false;
         }
         return true;
@@ -96,5 +97,4 @@ public class ImovelOut extends Imovel implements Serializable {
         int hash = 7;
         return hash;
     }
-    
 }

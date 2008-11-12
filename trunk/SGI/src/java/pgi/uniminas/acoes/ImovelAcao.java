@@ -14,14 +14,13 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author G1
  */
 public class ImovelAcao extends ActionSupport {
+
     private static final long serialVersionUID = 1L;
     private ImovelNeg imovelNeg = new ImovelNeg();
-    private List <Imovel> listImovel;
+    private List<Imovel> listImovel;
 
-
-    public String getImoveis(){
+    public String getImoveis() {
         listImovel = imovelNeg.getImoveis();
         return "Sucess";
     }
-
 }

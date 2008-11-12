@@ -10,41 +10,95 @@ import pgi.uniminas.entidades.Imovel;
  *
  * @author G1
  */
-public class ImovelHibDao implements ImovelDao{
-    private List <Imovel> imovelList;
+public class ImovelHibDao implements ImovelDao {
+
+    private List<Imovel> imovelList;
     private Imovel imovel;
     private Session session;
 
-
     public List getImoveis() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try{
+        try {
             session.beginTransaction();
-            imovelList = session.createQuery("from imovel as p" +
-                    "inner join fetch p.endereco").list();
+            imovelList = session.createQuery("from imovel as i" +
+                    "inner join fetch i.endereco").list();
             return imovelList;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.print("Erro de SQL: " + e);
             return null;
-        }finally{
+        } finally {
             session.close();
         }
     }
 
     public Imovel getImovel(int codImovel) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("from imovel as i" +
+                    "inner join fetch i.endereco" +
+                    "where i.codimovel = :codimovel");
+            q.setInteger("codimovel", codImovel);
+            return (Imovel) q.uniqueResult();
+        } catch (Exception e) {
+            System.out.print("Erro de SQL: " + e);
+            return null;
+        } finally {
+            session.close();
+        }
     }
 
     public void insertImovel(Imovel i) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            session.save(i);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     public void updateImovel(Imovel i) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            session.update(i);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
 
     public void deleteImovel(Imovel[] im) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            for (int i = 0; i < im.length; i++) {
+                imovel = (Imovel) session.get(Imovel.class, im[i].getCodImovel());
+                session.delete(imovel);
+                tr.commit();
+            }
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
     }
-
 }

@@ -11,29 +11,30 @@ import pgi.uniminas.persistencia.PessoaHibDao;
  * @author G1
  */
 public class PessoaNeg {
+
     private PessoaDao dao;
-    
-    public PessoaNeg(){
+
+    public PessoaNeg() {
         this.dao = new PessoaHibDao();
     }
-    
-    public List getPessoas(Integer codPessoa){
+
+    public List getPessoas(Integer codPessoa) {
         return dao.getPessoas();
     }
-    
-    public Pessoa getPessoa(Integer codPessoa){
+
+    public Pessoa getPessoa(Integer codPessoa) {
         return dao.getPessoa(codPessoa);
     }
-    
-    public void insertPessoa(Pessoa p){
+
+    public void insertPessoa(Pessoa p) {
         dao.insertPessoa(p);
     }
-    
-    public void updatePessoa(Pessoa p){
+
+    public void updatePessoa(Pessoa p) {
         dao.updatePessoa(p);
     }
-    
-    public void deletePessoa(Integer codPessoa){
-        dao.deletePessoa(codPessoa);
+
+    public void deletePessoa(Pessoa[] p) {
+        dao.deletePessoa(p);
     }
 }

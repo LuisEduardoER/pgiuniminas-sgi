@@ -15,33 +15,34 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
-@Table(name="sgicontexto")
-public class Contexto implements Serializable{
+@Table(name = "sgicontexto")
+public class Contexto implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codContexto;
     @OneToOne
-    @JoinColumn(name="codusuario")
+    @JoinColumn(name = "codusuario")
     private Usuario usuario;
-    @Column(name="nomgrupo")
+    @Column(name = "nomgrupo")
     private String nomGrupo;
-    @Column(name="indadmin")
+    @Column(name = "indadmin")
     private char indAdmin;
-    @Column(name="desurl")
+    @Column(name = "desurl")
     private String desUrl;
-    @Column(name="indmenu")
+    @Column(name = "indmenu")
     private char indMenu;
-    @Column(name="nomtabela")
+    @Column(name = "nomtabela")
     private String nomTabela;
     @OneToOne
-    @JoinColumn(name="codContexto")
+    @JoinColumn(name = "codContexto")
     private Contexto contexto;
 
     public Contexto() {
     }
 
-    public Contexto(Usuario usuario, String nomGrupo, char indAdmin, 
+    public Contexto(Usuario usuario, String nomGrupo, char indAdmin,
             String desUrl, char indMenu, String nomTabela, Contexto contexto) {
         this.usuario = usuario;
         this.nomGrupo = nomGrupo;
@@ -52,11 +53,10 @@ public class Contexto implements Serializable{
         this.contexto = contexto;
     }
 
-
     public int getCodContexto() {
         return codContexto;
     }
-    
+
     public Contexto getContexto() {
         return contexto;
     }
@@ -134,10 +134,9 @@ public class Contexto implements Serializable{
         hash = 23 * hash + this.codContexto;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.Visita[id=" + codContexto + "]";
     }
-    
 }

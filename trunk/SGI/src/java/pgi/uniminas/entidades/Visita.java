@@ -17,17 +17,18 @@ import javax.persistence.Temporal;
  * @author g1
  */
 @Entity
-@Table(name="sgivisita")
+@Table(name = "sgivisita")
 public class Visita implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name="codvisita")
+    @Column(name = "codvisita")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codVisita;
     @ManyToOne
-    @JoinColumn(name="codimovel")
+    @JoinColumn(name = "codimovel")
     private Imovel imovel;
-    @Column(name="dtavisita")    
+    @Column(name = "dtavisita")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaVisita;
 
@@ -42,7 +43,7 @@ public class Visita implements Serializable {
     public int getcodVisita() {
         return codVisita;
     }
-    
+
     public Date getDtaVisita() {
         return dtaVisita;
     }
@@ -80,8 +81,7 @@ public class Visita implements Serializable {
         hash = 89 * hash + this.codVisita;
         return hash;
     }
-    
-    
+
     @Override
     public String toString() {
         return "pgi.uniminas.entidades.Visita[id=" + codVisita + "]";

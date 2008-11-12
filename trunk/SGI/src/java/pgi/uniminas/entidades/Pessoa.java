@@ -14,67 +14,67 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
-
 /**
  * @author g1
  */
 @Entity
-@Table (name = "sgipessoa")
+@Table(name = "sgipessoa")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Pessoa implements Serializable {
+
     @Id
-    @Column(name="codpessoa")
+    @Column(name = "codpessoa")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codPessoa;
-    @Column(name="nompessoa")
+    @Column(name = "nompessoa")
     private String nomPessoa;
-    @Column(name="indnatureza")
+    @Column(name = "indnatureza")
     private char indNatureza;
-    @Column(name="numcpfcnpj")
+    @Column(name = "numcpfcnpj")
     private String numCpfCnpj;
-    @Column(name="numierg")
+    @Column(name = "numierg")
     private String numIeRg;
-    @Column(name="indcliente")
+    @Column(name = "indcliente")
     private char indCliente;
-    @Column(name="indcorretor")
+    @Column(name = "indcorretor")
     private char indCorretor;
-    @Column(name="indfuncionario")
-    private char indFuncionario;       
+    @Column(name = "indfuncionario")
+    private char indFuncionario;
     @OneToOne
-    @JoinColumn (name="codCep")
+    @JoinColumn(name = "codCep")
     private Endereco endereco;
-    @Column(name="numendereco")
+    @Column(name = "numendereco")
     private int numEndereco;
-    @Column(name="descomplemento")
+    @Column(name = "descomplemento")
     private String desComplemento;
-    @Column(name="numtelefonecom")
+    @Column(name = "numtelefonecom")
     private String numTelefoneCom;
-    @Column(name="numtelefoneres")
+    @Column(name = "numtelefoneres")
     private String numTelefoneRes;
-    @Column(name="numtelefonecel")
+    @Column(name = "numtelefonecel")
     private String numTelefoneCel;
-    @Column(name="numtelefonefax")
+    @Column(name = "numtelefonefax")
     private String numTelefoneFax;
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
-    @Column(name="dtanascimento")
+    @Column(name = "dtanascimento")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaNascimento;
-    @Column(name="nomfantasia")
+    @Column(name = "nomfantasia")
     private String nomFantasia;
-    @Column(name="nomcontato")
-    private String nomContato;    
-    
-    public Pessoa(){        
+    @Column(name = "nomcontato")
+    private String nomContato;
+
+    public Pessoa() {
     }
 
-    public Pessoa(String nomPessoa, char indNatureza, String numCpfCnpj, 
-                  String numIeRg, char indCliente, char indCorretor, 
-                  char indFuncionario, Endereco endereco, int numEndereco, 
-                  String desComplemento, String numTelefoneCom, 
-                  String numTelefoneRes, String numTelefoneCel, 
-                  String numTelefoneFax, String email, Date dtaNascimento, 
-                  String nomFantasia, String nomContato) {
+    public Pessoa(String nomPessoa, char indNatureza, String numCpfCnpj,
+            String numIeRg, char indCliente, char indCorretor,
+            char indFuncionario, Endereco endereco, int numEndereco,
+            String desComplemento, String numTelefoneCom,
+            String numTelefoneRes, String numTelefoneCel,
+            String numTelefoneFax, String email, Date dtaNascimento,
+            String nomFantasia, String nomContato) {
         this.nomPessoa = nomPessoa;
         this.indNatureza = indNatureza;
         this.numCpfCnpj = numCpfCnpj;
@@ -95,10 +95,10 @@ public class Pessoa implements Serializable {
         this.nomContato = nomContato;
     }
 
-    public int getCodPessoa(){
+    public int getCodPessoa() {
         return codPessoa;
     }
-    
+
     public Endereco getEndereco() {
         return endereco;
     }
@@ -264,9 +264,9 @@ public class Pessoa implements Serializable {
         hash = 59 * hash + this.codPessoa;
         return hash;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "pgi.uniminas.entidades.Pessoa [id=" + codPessoa + "]";
     }
 }
