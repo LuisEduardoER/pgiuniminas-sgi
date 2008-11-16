@@ -17,7 +17,19 @@ public class ImovelNeg {
         this.dao = new ImovelHibDao();
     }
 
+    public void insertImovel(Imovel i){
+        dao.insertImovel(i);
+    }
+
     public List getImoveis() {
         return dao.getImoveis();
+    }
+    
+    public Imovel getImovel(int codImovel){
+        return dao.getImovel(codImovel);
+    }
+
+    public void deleteImovel(Imovel [] i){
+        dao.deleteImovel(i);
     }
 }
