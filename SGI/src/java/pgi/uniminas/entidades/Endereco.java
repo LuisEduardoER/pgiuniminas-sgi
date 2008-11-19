@@ -30,6 +30,7 @@ public class Endereco implements Serializable {
     private String desObservacao;
     @Column(name = "indtipolougradouro")
     private String indTipoLogradouro;
+    
 
     public Endereco() {
     }

@@ -4,25 +4,40 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Imovel;
+import pgi.uniminas.entidades.Endereco;
 
 /**
  *
  * @author G1
  */
-public class ImovelHibDao implements ImovelDao {
+public class EnderecoHibDao implements EnderecoDao {
 
-    private List<Imovel> imovelList;
-    private Imovel imovel;
+    private List<Endereco> enderecoList;
+    private Endereco endereco;
     private Session session;
 
-    public List getImoveis() {
+    public List getEnderecos() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            imovelList = session.createQuery("from imovel as i" +
-                    "inner join fetch i.codcep").list();
-            return imovelList;
+            enderecoList = session.createQuery("from endereco as e").list();
+            return enderecoList;
+        } catch (RuntimeException e) {
+            System.out.print("Erro de SQL: " + e);
+            return null;
+        } finally {
+            session.clear();
+        }
+    }
+
+    public Endereco getEndereco(String codCep) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("from endereco as e" +
+                    "where e.codcep = :codcep");
+            q.setString("codcep", codCep);
+            return (Endereco) q.uniqueResult();
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -31,29 +46,12 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public Imovel getImovel(int codImovel) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query q = session.createQuery("from imovel as i" +
-                    "inner join fetch i.endereco" +
-                    "where i.codimovel = :codimovel");
-            q.setInteger("codimovel", codImovel);
-            return (Imovel) q.uniqueResult();
-        } catch (RuntimeException e) {
-            System.out.print("Erro de SQL: " + e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
-
-    public void insertImovel(Imovel i) {
+    public void insertEndereco(Endereco end) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.save(i);
+            session.save(end);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -65,38 +63,36 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public void updateImovel(Imovel i) {
+    public void updateEndereco(Endereco end) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.update(i);
+            session.update(end);
             tr.commit();
         } catch (RuntimeException e) {
-            if (tr != null) {
+            if(tr != null){
                 tr.rollback();
-            }
-            throw e;
+            }throw e;
         } finally {
             session.close();
         }
     }
 
-    public void deleteImovel(Imovel[] im) {
+    public void deleteEndereco(Endereco[] end) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < im.length; i++) {
-                imovel = (Imovel) session.get(Imovel.class, im[i].getCodImovel());
-                session.delete(imovel);                
+            for (int i = 0; i < end.length; i++) {
+                Endereco e = (Endereco) session.get(Endereco.class, end[i].getCodCep());
+                session.delete(e);
             }
             tr.commit();
         } catch (RuntimeException e) {
-            if (tr != null) {
+            if(tr != null){
                 tr.rollback();
-            }
-            throw e;
+            }throw e;
         } finally {
             session.close();
         }

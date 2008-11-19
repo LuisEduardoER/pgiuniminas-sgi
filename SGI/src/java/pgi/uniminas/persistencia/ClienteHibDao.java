@@ -4,25 +4,26 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Imovel;
+import pgi.uniminas.entidades.Cliente;
 
 /**
  *
  * @author G1
  */
-public class ImovelHibDao implements ImovelDao {
+public class ClienteHibDao implements ClienteDao {
 
-    private List<Imovel> imovelList;
-    private Imovel imovel;
+    private List clienteList;
+    private Cliente cliente;
     private Session session;
 
-    public List getImoveis() {
+    public List getClientes() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            imovelList = session.createQuery("from imovel as i" +
-                    "inner join fetch i.codcep").list();
-            return imovelList;
+            clienteList = session.createQuery("from cliente as c" +
+                    "inner fetch join c.codpessoa" +
+                    "inner fetch join c.codcep").list();
+            return clienteList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -31,15 +32,16 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public Imovel getImovel(int codImovel) {
+    public Cliente getCliente(int codCliente) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from imovel as i" +
-                    "inner join fetch i.endereco" +
-                    "where i.codimovel = :codimovel");
-            q.setInteger("codimovel", codImovel);
-            return (Imovel) q.uniqueResult();
+            Query q = session.createQuery("from cliente as c" +
+                    "inner fetch join c.codpessoa" +
+                    "inner fetch join c.codcep" +
+                    "where c.codcliente = :codcliente");
+            q.setInteger("codcliente", codCliente);
+            return (Cliente) q.uniqueResult();
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -48,12 +50,30 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public void insertImovel(Imovel i) {
+    public void insertCliente(Cliente cli) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.save(i);
+            session.save(cli);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+
+    }
+
+    public void updateCliente(Cliente cli) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            session.save(cli);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -65,40 +85,20 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public void updateImovel(Imovel i) {
+    public void deleteCliente(Cliente[] cli) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.update(i);
-            tr.commit();
-        } catch (RuntimeException e) {
-            if (tr != null) {
-                tr.rollback();
-            }
-            throw e;
-        } finally {
-            session.close();
-        }
-    }
-
-    public void deleteImovel(Imovel[] im) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
-        try {
-            tr = session.beginTransaction();
-            for (int i = 0; i < im.length; i++) {
-                imovel = (Imovel) session.get(Imovel.class, im[i].getCodImovel());
-                session.delete(imovel);                
+            for (int i = 0; i < cli.length; i++) {
+                cliente = (Cliente) session.get(Cliente.class, cli[i].getCodPessoa());
+                session.delete(cliente);
             }
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
                 tr.rollback();
             }
-            throw e;
-        } finally {
-            session.close();
         }
     }
 }

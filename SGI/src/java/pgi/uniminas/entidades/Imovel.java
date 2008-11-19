@@ -24,7 +24,7 @@ public class Imovel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codImovel;
     @OneToOne
-    @JoinColumn(name = "codCep")
+    @JoinColumn(name = "codcep")
     private Endereco endereco;
     @OneToOne
     @JoinColumn(name = "codPessoa")

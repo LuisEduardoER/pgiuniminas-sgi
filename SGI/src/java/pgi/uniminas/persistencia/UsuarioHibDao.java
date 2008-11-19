@@ -4,25 +4,24 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Imovel;
+import pgi.uniminas.entidades.Usuario;
 
 /**
  *
  * @author G1
  */
-public class ImovelHibDao implements ImovelDao {
+public class UsuarioHibDao implements UsuarioDao {
 
-    private List<Imovel> imovelList;
-    private Imovel imovel;
+    private List<Usuario> usuarioList;
+    private Usuario usuario;
     private Session session;
 
-    public List getImoveis() {
+    public List getUsuarios() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            imovelList = session.createQuery("from imovel as i" +
-                    "inner join fetch i.codcep").list();
-            return imovelList;
+            usuarioList = session.createQuery("from usuario u").list();
+            return usuarioList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -31,15 +30,14 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public Imovel getImovel(int codImovel) {
+    public Usuario getUsuario(int codUsuario) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from imovel as i" +
-                    "inner join fetch i.endereco" +
-                    "where i.codimovel = :codimovel");
-            q.setInteger("codimovel", codImovel);
-            return (Imovel) q.uniqueResult();
+            Query q = session.createQuery("from usuario u" +
+                    "where u.codusuario = :codusuario");
+            q.setInteger("codusuario", codUsuario);
+            return (Usuario) q.uniqueResult();
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -48,12 +46,12 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public void insertImovel(Imovel i) {
+    public void insertUsuario(Usuario us) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.save(i);
+            session.save(us);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -65,12 +63,12 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public void updateImovel(Imovel i) {
+    public void updateUsuario(Usuario us) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.update(i);
+            session.update(us);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -82,14 +80,14 @@ public class ImovelHibDao implements ImovelDao {
         }
     }
 
-    public void deleteImovel(Imovel[] im) {
+    public void deleteUsuario(Usuario[] us) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < im.length; i++) {
-                imovel = (Imovel) session.get(Imovel.class, im[i].getCodImovel());
-                session.delete(imovel);                
+            for (int i = 0; i < us.length; i++) {
+                usuario = (Usuario) session.get(Usuario.class, us[i].getCodUsuario());
+                session.delete(usuario);
             }
             tr.commit();
         } catch (RuntimeException e) {
