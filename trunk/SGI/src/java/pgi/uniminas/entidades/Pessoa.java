@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-
 /**
  * @author g1
  */
@@ -40,7 +39,7 @@ public class Pessoa implements Serializable {
     private char indCorretor;
     @Column(name = "indfuncionario")
     private char indFuncionario;
-    @OneToOne
+    @OneToOne    
     @JoinColumn(name = "codCep")
     private Endereco endereco;
     @Column(name = "numendereco")

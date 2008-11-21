@@ -4,29 +4,45 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Pessoa;
+import pgi.uniminas.entidades.Contexto;
 
 /**
  *
  * @author G1
  */
-public class PessoaHibDao implements PessoaDao {
+public class ContextoHibDao implements ContextoDao {
 
-    private List<Pessoa> pessoaList;
-    private Pessoa pess;
+    private List<Contexto> contextoList;
+    private Contexto contexto;
     private Session session;
 
-    @Override
-    public Pessoa getPessoa(int codPessoa) {
+    public List<Contexto> getContextos() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Pessoa as p " +
-                    "left join fetch p.endereco e " +
-                    "where p.codpessoa = :codPessoa");
-            q.setInteger("codpessoa", codPessoa);
-            return (Pessoa) q.uniqueResult();
-        } catch (Exception e) {
+            contextoList = session.createQuery("from Contexto as c" +
+                    "inner join fetch c.codusuario u").list();
+            return contextoList;
+        } catch (RuntimeException e) {
+            System.out.print("Erro de SQL: " + e);
+            return null;
+        } finally {
+            session.close();
+        }
+
+    }
+
+    public Contexto getContexto(int codContexto) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            session.beginTransaction();
+            Query q = session.createQuery("from Contexto as c" +
+                    "inner join fetch c.codusuario u" +
+                    "where c.codcontexto = :codcontexto");
+            q.setInteger("codcontexto", codContexto);
+            contexto = (Contexto) q.uniqueResult();
+            return contexto;
+        } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
         } finally {
@@ -34,29 +50,12 @@ public class PessoaHibDao implements PessoaDao {
         }
     }
 
-    @Override
-    public List getPessoas() {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            pessoaList = session.createQuery("from Pessoa as p" +
-                    "left join fetch p.endereco e").list();
-            return pessoaList;
-        } catch (Exception e) {
-            System.out.println("Erro de SQL: " + e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public void insertPessoa(Pessoa p) {
+    public void insertContexto(Contexto con) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.save(p);
+            session.save(con);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -68,13 +67,12 @@ public class PessoaHibDao implements PessoaDao {
         }
     }
 
-    @Override
-    public void updatePessoa(Pessoa p) {
+    public void updateContexto(Contexto con) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.update(p);
+            session.update(con);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -86,15 +84,14 @@ public class PessoaHibDao implements PessoaDao {
         }
     }
 
-    @Override
-    public void deletePessoa(Pessoa[] p) {
+    public void deleteContexto(Contexto[] con) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < p.length; i++) {
-                pess = (Pessoa) session.get(Pessoa.class, p[i].getCodPessoa());
-                session.delete(pess);
+            for (int i = 0; i <= con.length; i++) {
+                contexto = (Contexto) session.get(Contexto.class, con[i].getCodContexto());
+                session.delete(contexto);
             }
             tr.commit();
         } catch (RuntimeException e) {
