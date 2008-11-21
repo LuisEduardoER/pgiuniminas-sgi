@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * @author g1
+ * @author G1
  */
 @Entity
 @Table(name = "sgicliente")
@@ -17,7 +17,7 @@ public class Cliente extends Pessoa implements Serializable {
 
     @Column(name = "indestadocivil")
     private char indEstadoCivil;
-    @OneToOne
+    @OneToOne    
     @JoinColumn(name = "codPessoa")
     private Pessoa conjuje;
 

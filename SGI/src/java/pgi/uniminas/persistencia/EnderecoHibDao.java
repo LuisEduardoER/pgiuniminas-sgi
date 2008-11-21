@@ -20,7 +20,7 @@ public class EnderecoHibDao implements EnderecoDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            enderecoList = session.createQuery("from endereco as e").list();
+            enderecoList = session.createQuery("from Endereco as e").list();
             return enderecoList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
@@ -34,7 +34,7 @@ public class EnderecoHibDao implements EnderecoDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from endereco as e" +
+            Query q = session.createQuery("from Endereco as e" +
                     "where e.codcep = :codcep");
             q.setString("codcep", codCep);
             return (Endereco) q.uniqueResult();
