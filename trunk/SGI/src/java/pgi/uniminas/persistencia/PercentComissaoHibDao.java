@@ -1,29 +1,29 @@
 package pgi.uniminas.persistencia;
 
-import java.util.Iterator;
-import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Cliente;
+import pgi.uniminas.entidades.PercentComissao;
 
 /**
  *
  * @author G1
  */
-public class ClienteHibDao implements ClienteDao {
+public class PercentComissaoHibDao implements PercentComissaoDao {
 
-    private List clienteList;
-    private Cliente cliente;
+    private PercentComissao percentComissao;
     private Session session;
 
-    public List getClientes() {
+    public PercentComissao getPercentComissao(int codCorretor) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            clienteList = session.createQuery("from Cliente as c" +
-                    "inner fetch join c.conjuje").list();
-            return clienteList;
+            Query q = session.createQuery("from PercentComissao as c" +
+                    "inner join fetch c.codpessoa p" +
+                    "where p.codpessoa = :codcorretor");
+            q.setInteger("codcorretor", codCorretor);
+            percentComissao = (PercentComissao) q.uniqueResult();
+            return percentComissao;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -32,47 +32,12 @@ public class ClienteHibDao implements ClienteDao {
         }
     }
 
-    public Cliente getCliente(int codCliente) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query q = session.createQuery("from Cliente as c" +
-                    "inner fetch join c.conjuje p" +
-                    "where c.codcliente = :codcliente");
-            q.setInteger("codcliente", codCliente);
-            return (Cliente) q.uniqueResult();
-        } catch (RuntimeException e) {
-            System.out.print("Erro de SQL: " + e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
-
-    public void insertCliente(Cliente cli) {
+    public void insertPercentComissao(PercentComissao p) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.save(cli);
-            tr.commit();
-        } catch (RuntimeException e) {
-            if (tr != null) {
-                tr.rollback();
-            }
-            throw e;
-        } finally {
-            session.close();
-        }
-
-    }
-
-    public void updateCliente(Cliente cli) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
-        try {
-            tr = session.beginTransaction();
-            session.save(cli);
+            session.save(p);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -84,15 +49,30 @@ public class ClienteHibDao implements ClienteDao {
         }
     }
 
-    public void deleteCliente(Cliente[] cli) {
+    public void updatePercentComissao(PercentComissao p) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < cli.length; i++) {
-                cliente = (Cliente) session.get(Cliente.class, cli[i].getCodPessoa());
-                session.delete(cliente);
+            session.update(p);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
             }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deletePercentComissao(PercentComissao p) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            percentComissao = (PercentComissao) session.get(PercentComissao.class, p.getCorretor().getCodPessoa());
+            session.delete(percentComissao);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {

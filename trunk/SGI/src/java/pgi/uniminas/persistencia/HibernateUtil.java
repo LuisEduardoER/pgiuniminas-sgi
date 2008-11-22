@@ -3,6 +3,7 @@ package pgi.uniminas.persistencia;
 
 import org.hibernate.cfg.Configuration;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  * HibernateUtil.java classe com um método prático para obter Objeto 
@@ -16,7 +17,8 @@ public class HibernateUtil {
         try {
             // Crie o padrão de SessionFactory (hibernate.cfg.xml) 
             // Arquivo de Configuração
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            //sessionFactory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
