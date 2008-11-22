@@ -1,29 +1,32 @@
 package pgi.uniminas.persistencia;
 
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Cliente;
+import pgi.uniminas.entidades.Imovel;
+import pgi.uniminas.entidades.Visita;
 
 /**
  *
  * @author G1
  */
-public class ClienteHibDao implements ClienteDao {
+public class VisitaHibDao implements VisitaDao {
 
-    private List clienteList;
-    private Cliente cliente;
+    private List<Visita> visitaList;
+    private Visita visita;
     private Session session;
 
-    public List getClientes() {
+    public List<Visita> getVisitas(Imovel im) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            clienteList = session.createQuery("from Cliente as c" +
-                    "inner fetch join c.conjuje").list();
-            return clienteList;
+            Query q = session.createQuery("from Visita as v" +
+                    "inner join fetch v.imovel" +
+                    "where v.imovel = :im");
+            q.setEntity("im", im);
+            visitaList = q.list();
+            return visitaList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
@@ -32,47 +35,12 @@ public class ClienteHibDao implements ClienteDao {
         }
     }
 
-    public Cliente getCliente(int codCliente) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query q = session.createQuery("from Cliente as c" +
-                    "inner fetch join c.conjuje p" +
-                    "where c.codcliente = :codcliente");
-            q.setInteger("codcliente", codCliente);
-            return (Cliente) q.uniqueResult();
-        } catch (RuntimeException e) {
-            System.out.print("Erro de SQL: " + e);
-            return null;
-        } finally {
-            session.close();
-        }
-    }
-
-    public void insertCliente(Cliente cli) {
+    public void insertVisita(Visita v) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            session.save(cli);
-            tr.commit();
-        } catch (RuntimeException e) {
-            if (tr != null) {
-                tr.rollback();
-            }
-            throw e;
-        } finally {
-            session.close();
-        }
-
-    }
-
-    public void updateCliente(Cliente cli) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
-        try {
-            tr = session.beginTransaction();
-            session.save(cli);
+            session.save(v);
             tr.commit();
         } catch (RuntimeException e) {
             if (tr != null) {
@@ -84,14 +52,31 @@ public class ClienteHibDao implements ClienteDao {
         }
     }
 
-    public void deleteCliente(Cliente[] cli) {
+    public void updateVisita(Visita v) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < cli.length; i++) {
-                cliente = (Cliente) session.get(Cliente.class, cli[i].getCodPessoa());
-                session.delete(cliente);
+            session.update(v);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deleteVisita(Visita[] v) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            for (int i = 0; i <= v.length; i++) {
+                visita = (Visita) session.get(Visita.class, v[i].getcodVisita());
+                session.delete(visita);
             }
             tr.commit();
         } catch (RuntimeException e) {

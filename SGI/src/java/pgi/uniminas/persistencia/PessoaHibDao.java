@@ -1,5 +1,6 @@
 package pgi.uniminas.persistencia;
 
+import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,7 +23,7 @@ public class PessoaHibDao implements PessoaDao {
         try {
             session.beginTransaction();
             Query q = session.createQuery("from Pessoa as p " +
-                    "left join fetch p.endereco e " +
+                    "left join fetch p.endereco " +
                     "where p.codpessoa = :codPessoa");
             q.setInteger("codpessoa", codPessoa);
             return (Pessoa) q.uniqueResult();
@@ -39,8 +40,8 @@ public class PessoaHibDao implements PessoaDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            pessoaList = session.createQuery("from Pessoa as p" +
-                    "left join fetch p.endereco e").list();
+            pessoaList = session.createQuery("from Pessoa as p " +
+                    "left join fetch p.endereco").list();
             return pessoaList;
         } catch (Exception e) {
             System.out.println("Erro de SQL: " + e);
@@ -104,6 +105,15 @@ public class PessoaHibDao implements PessoaDao {
             throw e;
         } finally {
             session.close();
+        }
+    }
+
+    public static void main(String[] a){
+        PessoaHibDao c = new PessoaHibDao();
+        List lista = c.getPessoas();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
+            Pessoa o = (Pessoa)it.next();
+            System.out.println(o.getNomPessoa());
         }
     }
 }
