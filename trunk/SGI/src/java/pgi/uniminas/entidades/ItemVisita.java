@@ -1,6 +1,7 @@
 package pgi.uniminas.entidades;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class ItemVisita implements Serializable {
     @Column(name = "seqparecer")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int seqParecer;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "codvisita")
     private Visita visita;
     @Column(name = "indtipo")

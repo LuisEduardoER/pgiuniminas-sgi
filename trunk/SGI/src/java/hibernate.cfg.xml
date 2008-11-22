@@ -33,9 +33,10 @@
     <mapping class="pgi.uniminas.entidades.Cliente" />
     <mapping class="pgi.uniminas.entidades.Usuario" />
     <mapping class="pgi.uniminas.entidades.Contexto" />
-    <mapping class="pgi.uniminas.entidades.ContextoAcao" />
-    <mapping class="pgi.uniminas.entidades.UsuarioPermissao" />
+    <mapping class="pgi.uniminas.entidades.ContextoAcao" />    
     <mapping class="pgi.uniminas.entidades.Visita" />
     <mapping class="pgi.uniminas.entidades.ItemVisita" />
+    <mapping class="pgi.uniminas.entidades.PercentComissao"/>
+    
   </session-factory>
 </hibernate-configuration>
