@@ -9,7 +9,7 @@ import pgi.uniminas.entidades.Imovel;
  *
  * @author G1
  */
-public class ImovelNeg {
+public class ImovelNeg implements ImovelDao {
 
     private ImovelDao dao = new ImovelHibDao();
 
@@ -17,19 +17,23 @@ public class ImovelNeg {
         this.dao = new ImovelHibDao();
     }
 
-    public void insertImovel(Imovel i){
-        dao.insertImovel(i);
-    }
-
-    public List getImoveis() {
+    public List<Imovel> getImoveis() {
         return dao.getImoveis();
     }
-    
-    public Imovel getImovel(int codImovel){
+
+    public Imovel getImovel(int codImovel) {
         return dao.getImovel(codImovel);
     }
 
-    public void deleteImovel(Imovel [] i){
+    public void insertImovel(Imovel i) {
+        dao.insertImovel(i);
+    }
+
+    public void updateImovel(Imovel i) {
+        dao.updateImovel(i);
+    }
+
+    public void deleteImovel(Imovel[] i) {
         dao.deleteImovel(i);
     }
 }

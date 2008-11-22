@@ -30,7 +30,10 @@ public class Endereco implements Serializable {
     private String desObservacao;
     @Column(name = "indtipolougradouro")
     private String indTipoLogradouro;
-    
+    @OneToOne(mappedBy="endereco")
+    private Imovel imovel;
+    @OneToOne(mappedBy="endereco")
+    private Pessoa pessoa;    
 
     public Endereco() {
     }

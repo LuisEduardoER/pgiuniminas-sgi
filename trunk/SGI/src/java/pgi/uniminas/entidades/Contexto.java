@@ -20,6 +20,7 @@ public class Contexto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name="codcontexto")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codContexto;
     @OneToOne
@@ -36,8 +37,10 @@ public class Contexto implements Serializable {
     @Column(name = "nomtabela")
     private String nomTabela;
     @OneToOne
-    @JoinColumn(name = "codContexto")
+    @JoinColumn(name = "codcontexto")
     private Contexto contexto;
+    @OneToOne(mappedBy="contexto")
+    private ContextoAcao contextoAcao;
 
     public Contexto() {
     }
@@ -111,6 +114,10 @@ public class Contexto implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public ContextoAcao getContextoAcao() {
+        return contextoAcao;
     }
 
     @Override

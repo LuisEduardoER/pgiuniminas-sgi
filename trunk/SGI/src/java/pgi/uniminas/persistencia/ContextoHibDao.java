@@ -20,8 +20,8 @@ public class ContextoHibDao implements ContextoDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            contextoList = session.createQuery("from Contexto as c" +
-                    "inner join fetch c.codusuario u").list();
+            contextoList = session.createQuery("from Contexto as c " +
+                    "inner join fetch c.codUsuario").list();
             return contextoList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
@@ -36,9 +36,9 @@ public class ContextoHibDao implements ContextoDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Contexto as c" +
-                    "inner join fetch c.codusuario u" +
-                    "where c.codcontexto = :codcontexto");
+            Query q = session.createQuery("from Contexto as c " +
+                    "inner join fetch c.codUsuario " +
+                    "where c.codContexto = :codcontexto");
             q.setInteger("codcontexto", codContexto);
             contexto = (Contexto) q.uniqueResult();
             return contexto;

@@ -108,12 +108,12 @@ public class PessoaHibDao implements PessoaDao {
         }
     }
 
-    public static void main(String[] a){
+   /* public static void main(String[] a){
         PessoaHibDao c = new PessoaHibDao();
         List lista = c.getPessoas();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             Pessoa o = (Pessoa)it.next();
             System.out.println(o.getNomPessoa());
         }
-    }
+    }*/
 }

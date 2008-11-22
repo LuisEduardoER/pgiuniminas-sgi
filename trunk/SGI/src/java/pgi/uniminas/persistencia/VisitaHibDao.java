@@ -21,8 +21,8 @@ public class VisitaHibDao implements VisitaDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Visita as v" +
-                    "inner join fetch v.imovel" +
+            Query q = session.createQuery("from Visita as v " +
+                    "inner join fetch v.imovel " +
                     "where v.imovel = :im");
             q.setEntity("im", im);
             visitaList = q.list();

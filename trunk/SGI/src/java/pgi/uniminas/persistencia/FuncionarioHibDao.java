@@ -20,8 +20,7 @@ public class FuncionarioHibDao implements FuncionarioDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            funcionarioList = session.createQuery("from Funcionario as f" +
-                    "inner join fetch f.codpessoa p").list();
+            funcionarioList = session.createQuery("from Funcionario as f ").list();
             return funcionarioList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
@@ -35,9 +34,8 @@ public class FuncionarioHibDao implements FuncionarioDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Funcionario as f" +
-                    "inner join fetch f.codpessoa p" +
-                    "where p.codpessoa = :codfuncionario");
+            Query q = session.createQuery("from Funcionario as f " +
+                    "where p.codPessoa = :codfuncionario");
             q.setInteger("codfuncionario", codFuncionario);
             funcionario = (Funcionario) q.uniqueResult();
             return funcionario;

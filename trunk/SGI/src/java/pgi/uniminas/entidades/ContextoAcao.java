@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,6 +30,9 @@ public class ContextoAcao implements Serializable {
     private String nomAcao;
     @Column(name = "indadmin")
     private char indAdmin;
+    @OneToOne
+    @JoinColumn(name="codcontexto")
+    private Contexto contexto;
 
     @ManyToMany
     @JoinTable(name="sgiusuariopermissao",
@@ -64,6 +68,24 @@ public class ContextoAcao implements Serializable {
     public void setNomAcao(String nomAcao) {
         this.nomAcao = nomAcao;
     }
+
+    public Contexto getContexto() {
+        return contexto;
+    }
+
+    public void setContexto(Contexto contexto) {
+        this.contexto = contexto;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios){
+        this.usuarios = usuarios;
+    }
+
+
 
     @Override
     public boolean equals(Object obj) {

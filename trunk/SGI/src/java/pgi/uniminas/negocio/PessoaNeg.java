@@ -10,7 +10,7 @@ import pgi.uniminas.persistencia.PessoaHibDao;
  *
  * @author G1
  */
-public class PessoaNeg {
+public class PessoaNeg implements PessoaDao {
 
     private PessoaDao dao;
 
@@ -18,11 +18,11 @@ public class PessoaNeg {
         this.dao = new PessoaHibDao();
     }
 
-    public List getPessoas(Integer codPessoa) {
+    public List getPessoas() {
         return dao.getPessoas();
     }
 
-    public Pessoa getPessoa(Integer codPessoa) {
+    public Pessoa getPessoa(int codPessoa) {
         return dao.getPessoa(codPessoa);
     }
 
@@ -37,4 +37,5 @@ public class PessoaNeg {
     public void deletePessoa(Pessoa[] p) {
         dao.deletePessoa(p);
     }
-}
+
+    }

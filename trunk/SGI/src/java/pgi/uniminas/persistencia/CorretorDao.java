@@ -17,5 +17,5 @@ public interface CorretorDao {
 
     public void updateCorretor(Corretor cor);
 
-    public void deleteCorrtor(Corretor[] cor);
+    public void deleteCorretor(Corretor[] cor);
 }

@@ -1,6 +1,9 @@
 package pgi.uniminas.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,13 +25,14 @@ import javax.persistence.Table;
 public class Imovel implements Serializable {
 
     @Id
+    @Column(name="codimovel")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codImovel;
     @OneToOne
     @JoinColumn(name = "codcep")
     private Endereco endereco;
     @OneToOne
-    @JoinColumn(name = "codPessoa")
+    @JoinColumn(name = "codproprietario")
     private Pessoa proprietario;
     @Column(name = "numendereco")
     private int numEndereco;
@@ -43,6 +48,9 @@ public class Imovel implements Serializable {
     private double valImovel;
     @Column(name = "indtipo")
     private char indTipo;
+    @OneToMany(mappedBy="imovel", cascade=CascadeType.ALL)
+    private List<Visita> visitas = new ArrayList<Visita>();
+    
 
     public Imovel() {
     }
@@ -135,6 +143,10 @@ public class Imovel implements Serializable {
 
     public void setValImovel(double valImovel) {
         this.valImovel = valImovel;
+    }
+
+    public List<Visita> getVisitas() {
+        return visitas;
     }
 
     @Override

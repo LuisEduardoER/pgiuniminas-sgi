@@ -34,7 +34,7 @@ public class EnderecoHibDao implements EnderecoDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Endereco as e" +
+            Query q = session.createQuery("from Endereco as e " +
                     "where e.codcep = :codcep");
             q.setString("codcep", codCep);
             return (Endereco) q.uniqueResult();

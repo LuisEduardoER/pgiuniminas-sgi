@@ -20,8 +20,9 @@ public class ClienteHibDao implements ClienteDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            clienteList = session.createQuery("from Cliente as c" +
-                    "inner fetch join c.conjuje").list();
+            clienteList = session.createQuery("from Cliente as c " +
+                    "inner join fetch c.conjuje " +
+                    "left join fetch c.endereco ").list();
             return clienteList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
@@ -35,9 +36,10 @@ public class ClienteHibDao implements ClienteDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Cliente as c" +
-                    "inner fetch join c.conjuje p" +
-                    "where c.codcliente = :codcliente");
+            Query q = session.createQuery("from Cliente as c " +
+                    "inner join fetch c.conjuje " +
+                    "left join fetch c.endereco " +
+                    "where c.codPessoa = :codcliente");
             q.setInteger("codcliente", codCliente);
             return (Cliente) q.uniqueResult();
         } catch (RuntimeException e) {

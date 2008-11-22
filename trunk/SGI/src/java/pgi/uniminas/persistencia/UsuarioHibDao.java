@@ -16,11 +16,11 @@ public class UsuarioHibDao implements UsuarioDao {
     private Usuario usuario;
     private Session session;
 
-    public List getUsuarios() {
+    public List<Usuario> getUsuarios() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            usuarioList = session.createQuery("from Usuario u").list();
+            usuarioList = session.createQuery("from Usuario as u").list();
             return usuarioList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
@@ -34,8 +34,8 @@ public class UsuarioHibDao implements UsuarioDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Usuario u" +
-                    "where u.codusuario = :codusuario");
+            Query q = session.createQuery("from Usuario as u " +
+                    "where u.codUsuario = :codusuario");
             q.setInteger("codusuario", codUsuario);
             return (Usuario) q.uniqueResult();
         } catch (RuntimeException e) {

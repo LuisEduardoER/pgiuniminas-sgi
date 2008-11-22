@@ -1,5 +1,6 @@
 package pgi.uniminas.persistencia;
 
+import java.util.List;
 import pgi.uniminas.entidades.PercentComissao;
 
 /**
@@ -7,6 +8,8 @@ import pgi.uniminas.entidades.PercentComissao;
  * @author G1
  */
 public interface PercentComissaoDao {
+
+    public List<PercentComissao> getPercentComissoes();
 
     public PercentComissao getPercentComissao(int codCorretor);
 
