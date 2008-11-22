@@ -6,19 +6,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
  * @author G1
  */
 @Entity
+@PrimaryKeyJoinColumn(name="codpessoa")
 @Table(name = "sgicliente")
 public class Cliente extends Pessoa implements Serializable {
 
     @Column(name = "indestadocivil")
     private char indEstadoCivil;
     @OneToOne    
-    @JoinColumn(name = "codPessoa")
+    @JoinColumn(name = "codconjuje")
     private Pessoa conjuje;
 
     public Cliente() {

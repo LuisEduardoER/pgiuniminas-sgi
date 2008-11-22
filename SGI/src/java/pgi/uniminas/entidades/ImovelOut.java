@@ -3,6 +3,7 @@ package pgi.uniminas.entidades;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -10,6 +11,7 @@ import javax.persistence.Table;
  * @author g1
  */
 @Entity
+@PrimaryKeyJoinColumn(name="codimovel")
 @Table(name = "sgiimovelout")
 public class ImovelOut extends Imovel implements Serializable {
 

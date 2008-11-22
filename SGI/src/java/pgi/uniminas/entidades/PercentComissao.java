@@ -4,12 +4,12 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 /**
- * @author g1
+     * @author g1
  */
 @Entity
 @Table(name = "sgipercentcomissao")

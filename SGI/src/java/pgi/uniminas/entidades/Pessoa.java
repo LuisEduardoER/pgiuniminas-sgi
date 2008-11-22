@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "sgipessoa")
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Pessoa implements Serializable {
 
     @Id
