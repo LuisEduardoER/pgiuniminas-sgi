@@ -138,6 +138,15 @@ public class Usuario implements Serializable {
         this.nomUsuario = nomUsuario;
     }
 
+    public List<ContextoAcao> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(List<ContextoAcao> permissoes) {
+        this.permissoes = permissoes;
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

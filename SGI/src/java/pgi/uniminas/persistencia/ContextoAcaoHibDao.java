@@ -5,90 +5,93 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Corretor;
+import pgi.uniminas.entidades.ContextoAcao;
 
 /**
  *
  * @author G1
  */
-public class CorretorHibDao implements CorretorDao {
-    public List<Corretor> corretorList;
-    public Corretor corretor;
-    public Session session;
+public class ContextoAcaoHibDao implements ContextoAcaoDao {
 
-    public List<Corretor> getCorretores() {
+    private List<ContextoAcao> contextoAcaoList;
+    private ContextoAcao contextoAcao;
+    private Session session;
+
+    public List<ContextoAcao> getContextoAcoes() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            corretorList = session.createQuery("from Corretor as c " +
-                    "left join fetch c.endereco ").list();
-            return corretorList;
-        }catch (RuntimeException e) {
+            contextoAcaoList = session.createQuery("from ContextoAcao c " +
+                    "inner join  fetch c.contexto").list();
+            return contextoAcaoList;
+        } catch (RuntimeException e){
             System.out.print("Erro de SQL: " + e);
             return null;
-        }finally {
-            session.close();
-        }
-    }
-
-    public Corretor getCorretor(int codCorretor) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query q = session.createQuery("from Corretor as c " +
-                    "left join fetch c.endereco " +
-                    "where c.codPessoa = :codcorretor");
-            q.setInteger("codcorretor", codCorretor);
-            corretor = (Corretor) q.uniqueResult();
-            return corretor;
-        }catch(RuntimeException e){
-            System.out.print("Erro de SQL: " + e);
-            return null;
-        }finally {
-            session.close();
-        }
-    }
-
-    public void insertCorretor(Corretor cor) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
-        try {
-            tr = session.beginTransaction();
-            session.save(cor);
-            tr.commit();
-        }catch(RuntimeException e){
-            if(tr != null){
-                tr.rollback();
-            }throw e;
         } finally {
             session.close();
         }
     }
 
-    public void updateCorretor(Corretor cor) {
+    public ContextoAcao getContextoAcao(int codContextoAcao) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
         try {
-            tr = session.beginTransaction();
-            session.update(cor);
-            tr.commit();
-        }catch (RuntimeException e) {
-            if(tr != null){
-                tr.rollback();
-            }throw e;
-        }finally {
+            session.beginTransaction();
+            Query q = session.createQuery("from ContextoAcao c " +
+                    "inner join fetch c.contexto " +
+                    "where c.codAcao = :codcontextoacao");
+            q.setInteger("codcontextoacao", codContextoAcao);
+            contextoAcao = (ContextoAcao) q.uniqueResult();
+            return contextoAcao;
+        } catch (RuntimeException e) {
+            System.out.print("Erro de SQL: " + e);
+            return null;
+        } finally {
             session.close();
         }
     }
 
-    public void deleteCorretor(Corretor[] cor) {
+    public void insertContextoAcao(ContextoAcao cA) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < cor.length; i++) {
-                corretor = (Corretor) session.get(Corretor.class, cor[i].getCodPessoa());
-                session.delete(corretor);
+            session.save(cA);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void updateContextoAcao(ContextoAcao cA) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            session.update(cA);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deleteContextoAcao(ContextoAcao[] cA) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            for (int i = 0; i <= cA.length; i++) {
+                contextoAcao = (ContextoAcao) session.get(ContextoAcao.class, cA[i].getCodAcao());
+                session.delete(contextoAcao);
             }
             tr.commit();
         } catch (RuntimeException e) {
@@ -100,4 +103,5 @@ public class CorretorHibDao implements CorretorDao {
             session.close();
         }
     }
+
 }

@@ -5,90 +5,93 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import pgi.uniminas.entidades.Corretor;
+import pgi.uniminas.entidades.ImovelRes;
 
 /**
  *
  * @author G1
  */
-public class CorretorHibDao implements CorretorDao {
-    public List<Corretor> corretorList;
-    public Corretor corretor;
-    public Session session;
+public class ImovelResHibDao implements ImovelResDao{
 
-    public List<Corretor> getCorretores() {
+    private List<ImovelRes> imovelResList;
+    private ImovelRes imovelRes;
+    private Session session;
+
+    public List<ImovelRes> getImoveisRes() {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            corretorList = session.createQuery("from Corretor as c " +
-                    "left join fetch c.endereco ").list();
-            return corretorList;
-        }catch (RuntimeException e) {
+            imovelResList = session.createQuery("from ImovelRes as i " +
+                    "inner join fetch i.endereco").list();
+            return imovelResList;
+        } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
             return null;
-        }finally {
-            session.close();
-        }
-    }
-
-    public Corretor getCorretor(int codCorretor) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        try {
-            session.beginTransaction();
-            Query q = session.createQuery("from Corretor as c " +
-                    "left join fetch c.endereco " +
-                    "where c.codPessoa = :codcorretor");
-            q.setInteger("codcorretor", codCorretor);
-            corretor = (Corretor) q.uniqueResult();
-            return corretor;
-        }catch(RuntimeException e){
-            System.out.print("Erro de SQL: " + e);
-            return null;
-        }finally {
-            session.close();
-        }
-    }
-
-    public void insertCorretor(Corretor cor) {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
-        try {
-            tr = session.beginTransaction();
-            session.save(cor);
-            tr.commit();
-        }catch(RuntimeException e){
-            if(tr != null){
-                tr.rollback();
-            }throw e;
         } finally {
             session.close();
         }
     }
 
-    public void updateCorretor(Corretor cor) {
+    public ImovelRes getImovelRes(int codImovel) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction tr = null;
         try {
-            tr = session.beginTransaction();
-            session.update(cor);
-            tr.commit();
-        }catch (RuntimeException e) {
-            if(tr != null){
-                tr.rollback();
-            }throw e;
-        }finally {
+            session.beginTransaction();
+            Query q = session.createQuery("from ImovelRes as i " +
+                    "inner join fetch i.endereco " +
+                    "where i.codImovel = :codimovel");
+            q.setInteger("codimovel", codImovel);
+            imovelRes = (ImovelRes) q.uniqueResult();
+            return imovelRes;
+        } catch (RuntimeException e) {
+            System.out.print("Erro de SQL: " + e);
+            return null;
+        } finally {
             session.close();
         }
     }
 
-    public void deleteCorretor(Corretor[] cor) {
+    public void insertImovelRes(ImovelRes imvR) {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction tr = null;
         try {
             tr = session.beginTransaction();
-            for (int i = 0; i < cor.length; i++) {
-                corretor = (Corretor) session.get(Corretor.class, cor[i].getCodPessoa());
-                session.delete(corretor);
+            session.save(imvR);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void updateImovelRes(ImovelRes imvR) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            session.update(imvR);
+            tr.commit();
+        } catch (RuntimeException e) {
+            if (tr != null) {
+                tr.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deleteImovelRes(ImovelRes[] imvR) {
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Transaction tr = null;
+        try {
+            tr = session.beginTransaction();
+            for (int i = 0; i < imvR.length; i++) {
+                imovelRes = (ImovelRes) session.get(ImovelRes.class, imvR[i].getCodImovel());
+                session.delete(imovelRes);
             }
             tr.commit();
         } catch (RuntimeException e) {
@@ -100,4 +103,5 @@ public class CorretorHibDao implements CorretorDao {
             session.close();
         }
     }
+
 }

@@ -29,15 +29,15 @@ public class Visita implements Serializable {
     @Column(name = "codvisita")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codVisita;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "codimovel")
     private Imovel imovel;
     @Column(name = "dtavisita")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dtaVisita;
-   // @OneToMany(mappedBy="sgiparecervisita",
-     //          cascade=CascadeType.ALL)
-   // private List<ItemVisita> itens = new ArrayList<ItemVisita>();
+    @OneToMany(mappedBy="visita",
+               cascade=CascadeType.ALL)
+   private List<ItemVisita> itens = new ArrayList<ItemVisita>();
 
 
     public Visita() {

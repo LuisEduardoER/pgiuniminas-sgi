@@ -21,8 +21,8 @@ public class ItemVisitaHibDao implements ItemVisitaDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from ItemVisita as i" +
-                    "inner join fetch i.codvisita v" +
+            Query q = session.createQuery("from ItemVisita as i " +
+                    "inner join fetch i.visita v " +
                     "where v.codvisita = :codvisita");
             q.setInteger("codvisita", v.getcodVisita());
             itemVisitaList = q.list();

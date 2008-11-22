@@ -20,8 +20,9 @@ public class ImovelHibDao implements ImovelDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            imovelList = session.createQuery("from Imovel as i" +
-                    "left join fetch i.codcep e").list();
+            imovelList = session.createQuery("from Imovel as i " +
+                    "inner join fetch i.proprietario" +
+                    "left join fetch i.endereco").list();
             return imovelList;
         } catch (RuntimeException e) {
             System.out.print("Erro de SQL: " + e);
@@ -35,7 +36,8 @@ public class ImovelHibDao implements ImovelDao {
         session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             session.beginTransaction();
-            Query q = session.createQuery("from Imovel as i" +
+            Query q = session.createQuery("from Imovel as i " +
+                    "inner join fetch i.proprietario " +
                     "left join fetch i.endereco e" +
                     "where i.codimovel = :codimovel");
             q.setInteger("codimovel", codImovel);

@@ -9,7 +9,7 @@ import pgi.uniminas.entidades.Usuario;
  */
 public interface UsuarioDao {
 
-    public List getUsuarios();
+    public List<Usuario> getUsuarios();
 
     public Usuario getUsuario(int codUsuario);
 

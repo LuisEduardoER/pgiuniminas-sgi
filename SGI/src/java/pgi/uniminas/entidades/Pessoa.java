@@ -40,7 +40,7 @@ public class Pessoa implements Serializable {
     @Column(name = "indfuncionario")
     private char indFuncionario;
     @OneToOne    
-    @JoinColumn(name = "codCep")
+    @JoinColumn(name = "codcep")
     private Endereco endereco;
     @Column(name = "numendereco")
     private int numEndereco;
