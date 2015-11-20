@@ -1,0 +1,1 @@
+Projeto de graduação interdisciplinar a ser desenvolvido ao longo do período acadêmico, que tem como objetivo desenvolver um software para auxilio na gestão de uma imobiliária.
